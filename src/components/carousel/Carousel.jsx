@@ -1,9 +1,6 @@
-
-
 import React, { memo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
@@ -18,7 +15,6 @@ export const Carousel = ({ data }) => {
 
   return (
     <div className="my-5 container mx-auto">
-      {/* Main Swiper */}
       <Swiper
         style={{
           "--swiper-navigation-color": "#fff",
@@ -38,14 +34,12 @@ export const Carousel = ({ data }) => {
         {data.results?.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="relative w-full h-[400px] lg:h-full">
-              {/* Background Image */}
               <img
                 src={`${import.meta.env.VITE_IMAGE_URL}${item.backdrop_path}`}
                 alt="Backdrop"
                 className="w-full h-full object-cover rounded-lg"
               />
 
-              {/* Overlay Content */}
               <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent to-transparent p-4">
                 <h2 className="text-white text-3xl font-bold">
                   {item.title || "No Title"}
@@ -53,7 +47,6 @@ export const Carousel = ({ data }) => {
                 <p className="text-white text-[14px] mt-2">
                   {item.release_date} • {item.original_language.toUpperCase()}
                 </p>
-                {/* Smotret Button */}
                 <button
                   onClick={() => alert(`Watching ${item.title}`)}
                   className="w-[380px] h-[52px] bg-white text-[#C61F1F] font-semibold rounded-xl hover:bg-[#C61F1F] hover:text-white transition text-[32px]"
@@ -66,7 +59,6 @@ export const Carousel = ({ data }) => {
         ))}
       </Swiper>
 
-      {/* Thumbs Swiper */}
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}

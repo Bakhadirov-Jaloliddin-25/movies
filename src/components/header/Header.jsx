@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RiCoupon3Line } from "react-icons/ri";
 import { MdOutlineVibration } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
@@ -24,8 +24,19 @@ const lang = [
 ];
 
 const Header = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle("dark", !darkMode);
+  };
+
   return (
-    <div className="container flex flex-wrap items-center justify-around py-4">
+    <div
+      className={`container flex flex-wrap items-center justify-around py-4 ${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      }`}
+    >
       <div className="w-[112px] h-[36px]">
         <img className="w-full h-full" src={logo} alt="" />
       </div>
@@ -47,8 +58,8 @@ const Header = () => {
           <span className="text-[#A1A1A1]">Search</span>
         </li>
       </ul>
-      <div className="flex gap-2 items-center">
-        <select className="h-full bg-slate-900 px-2 py-2 rounded-md text-white">
+      <div className="flex gap-4 items-center">
+        <select className="h-full bg-slate-900 px-3 py-2 rounded-md text-white">
           {lang.map((item) => (
             <option key={item.value} value={item.value}>
               {item.label}
@@ -57,6 +68,12 @@ const Header = () => {
         </select>
         <button className="w-[180px] h-[56px] bg-red-700 text-white py-3 rounded-[12px]">
           Login
+        </button>
+        <button
+          onClick={toggleDarkMode}
+          className={`w-[56px] h-[56px] flex items-center justify-center rounded-full bg-gray-600`}
+        >
+          {darkMode ? "☀️" : "🌙"}
         </button>
       </div>
     </div>
