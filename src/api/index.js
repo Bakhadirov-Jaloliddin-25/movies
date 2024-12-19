@@ -9,3 +9,5 @@ request.interceptors.request.use((config) => {
 
   return config;
 });
+
+export { request };
