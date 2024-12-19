@@ -9,7 +9,7 @@ import { IoDocumentTextSharp } from "react-icons/io5";
 import { PiStarFour } from "react-icons/pi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
-// import logo from "@/assets/logos/logo2.png";
+import logo from "@/assets/images/logo1.svg";
 
 const Footer = () => {
   return (
@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="flex space-x-2 items-center mb-4">
             <div className="">
               <img
-                src="{logo}"
+                src={logo}
                 alt="logo"
                 className="w-[55px] h-9 cursor-pointer hover:opacity-75"
               />
@@ -43,7 +43,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* About Section */}
         <div>
           <h3 className="text-lg font-semibold mb-3">About us</h3>
           <ul>
@@ -66,7 +65,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Categories Section */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Categories</h3>
           <ul>
@@ -85,7 +83,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact Section */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact us</h3>
           <p className="text-red-500 mb-4 cursor-pointer hover:underline hover:text-red-600">

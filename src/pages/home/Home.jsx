@@ -14,8 +14,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-black">
-      <Header />
+    <div className="bg-white dark:bg-black">
       <Carousel data={data} />
       <Movies data={data} />
       <Footer />

@@ -1,4 +1,3 @@
-// import React from 'react'
 import { RiCoupon3Line } from "react-icons/ri";
 import { MdOutlineVibration } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
@@ -6,9 +5,6 @@ import { FiSearch } from "react-icons/fi";
 import { IoTvSharp } from "react-icons/io5";
 import React from "react";
 import logo from "@/assets/images/logo.svg";
-import { BsBox2Fill } from "react-icons/bs";
-import { AiFillCopy } from "react-icons/ai";
-import { BiBookmarks } from "react-icons/bi";
 
 const lang = [
   {
@@ -16,11 +12,11 @@ const lang = [
     value: "en",
   },
   {
-    label: "Rus",
+    label: "Ру",
     value: "ru",
   },
   {
-    label: "Uzb",
+    label: "Uz",
     value: "uzb",
   },
 ];
