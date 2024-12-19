@@ -12,7 +12,7 @@ import { memo } from "react";
 
 const Movies = ({ data }) => {
   return (
-    <div className="container justify-center mt-24 ">
+    <div className="container justify-center mt-24 px-28">
       <Swiper
         loop={true}
         navigation={true}
@@ -23,7 +23,7 @@ const Movies = ({ data }) => {
       >
         {data.results?.map((item, index) => (
           <SwiperSlide key={index} className="rounded-xl ">
-            <MovieItem {...item}/>
+            <MovieItem {...item} />
           </SwiperSlide>
         ))}
       </Swiper>

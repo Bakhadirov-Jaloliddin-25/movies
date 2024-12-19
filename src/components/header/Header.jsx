@@ -1,10 +1,12 @@
+import React from "react";
 import { RiCoupon3Line } from "react-icons/ri";
 import { MdOutlineVibration } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
-
-import { IoTvSharp } from "react-icons/io5";
-import React from "react";
 import logo from "@/assets/images/logo.svg";
+import active_header1 from "@/assets/images/header1-active.svg";
+import header2 from "@/assets/images/header2.svg";
+import header3 from "@/assets/images/header3.svg";
+import header4 from "@/assets/images/header4.svg";
 
 const lang = [
   {
@@ -29,19 +31,19 @@ const Header = () => {
       </div>
       <ul className="flex w-[250px] flex-wrap justify-between">
         <li className="flex flex-wrap flex-col items-center cursor-pointer">
-          <IoTvSharp className="text-[20px] text-[#A1A1A1]" />
-          <span className="text-[#A1A1A1]">Afisha</span>
+          <img src={active_header1} className="text-[20px] text-primary" />
+          <span className="text-primary">Poster</span>
         </li>
         <li className="flex flex-wrap flex-col items-center cursor-pointer">
-          <MdOutlineVibration className="text-[20px] text-[#A1A1A1]" />
-          <span className="text-[#A1A1A1]">Seans</span>
+          <img src={header2} className="text-[20px] text-[#A1A1A1]" />
+          <span className="text-[#A1A1A1]">Sessions</span>
         </li>
         <li className="flex flex-wrap flex-col items-center cursor-pointer">
-          <RiCoupon3Line className="text-[20px] text-[#A1A1A1]" />
-          <span className="text-[#A1A1A1]">Ticket</span>
+          <img src={header3} className="text-[20px] text-[#A1A1A1]" />
+          <span className="text-[#A1A1A1]">Tickets</span>
         </li>
         <li className="flex flex-wrap flex-col items-center cursor-pointer">
-          <FiSearch className="text-[20px] text-[#A1A1A1]" />
+          <img src={header4} className="text-[20px] text-[#A1A1A1]" />
           <span className="text-[#A1A1A1]">Search</span>
         </li>
       </ul>
@@ -53,7 +55,7 @@ const Header = () => {
             </option>
           ))}
         </select>
-        <button className="w-[180px] bg-red-700 text-white py-3 rounded-md">
+        <button className="w-[180px] h-[56px] bg-red-700 text-white py-3 rounded-[12px]">
           Login
         </button>
       </div>
