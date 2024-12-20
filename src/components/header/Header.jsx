@@ -36,9 +36,7 @@ const Header = () => {
       className={`${darkMode ? "bg-black text-white" : "bg-white text-black"}`}
     >
       <div
-        className={`container flex flex-wrap items-center justify-around py-4 ${
-          darkMode ? "bg-black text-white" : "bg-white text-black"
-        }`}
+        className={`container flex flex-wrap items-center justify-around py-4 `}
       >
         <div className="w-[112px] h-[36px]">
           <img className="w-full h-full" src={logo} alt="" />
