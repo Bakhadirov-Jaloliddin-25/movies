@@ -5,6 +5,7 @@ import imdb from "../../assets/images/imdb.svg";
 import kinopoisk from "../../assets/images/kinopoisk.svg";
 import translate from "translate";
 import Movies from "../../components/movies/Movies";
+import { Helmet } from "react-helmet";
 
 const Details = () => {
   const { id } = useParams();
@@ -104,6 +105,9 @@ const Details = () => {
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white">
+      <Helmet>
+        <title>Detail</title>
+      </Helmet>
       <div className="flex flex-col items-center">
         <div className="w-[1360px] h-[640px] relative">
           <img

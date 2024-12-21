@@ -4,6 +4,7 @@ import active_header1 from "@/assets/images/header1-active.svg";
 import header2 from "@/assets/images/header2.svg";
 import header3 from "@/assets/images/header3.svg";
 import header4 from "@/assets/images/header4.svg";
+import { useNavigate } from "react-router-dom";
 
 const lang = [
   {
@@ -21,6 +22,7 @@ const lang = [
 ];
 
 const Header = () => {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -38,7 +40,12 @@ const Header = () => {
         className={`container flex flex-wrap items-center justify-around py-4 `}
       >
         <div className="w-[112px] h-[36px]">
-          <img className="w-full h-full" src={logo} alt="" />
+          <img
+            onClick={() => navigate("/")}
+            className="w-full h-full cursor-pointer"
+            src={logo}
+            alt=""
+          />
         </div>
         <ul className="flex w-[250px] flex-wrap justify-between">
           <li className="flex flex-wrap flex-col items-center cursor-pointer">

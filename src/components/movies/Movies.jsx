@@ -19,7 +19,7 @@ const Movies = ({ data }) => {
         modules={[Navigation]}
         className="CardSwiper "
       >
-        {data.results?.map((item, index) => (
+        {data?.results?.map((item, index) => (
           <SwiperSlide key={index} className="rounded-xl ">
             <MovieItem {...item} />
           </SwiperSlide>

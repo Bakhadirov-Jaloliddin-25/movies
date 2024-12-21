@@ -33,7 +33,7 @@ export const Carousel = ({ data }) => {
         modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className="mySwiper2"
       >
-        {data.results?.map((item) => (
+        {data?.results?.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="relative w-full h-[400px] lg:h-full">
               <img
@@ -71,7 +71,7 @@ export const Carousel = ({ data }) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper mt-5"
       >
-        {data.results?.map((item) => (
+        {data?.results?.map((item) => (
           <SwiperSlide key={item.id} className="cursor-pointer">
             <img
               src={`${import.meta.env.VITE_IMAGE_URL}${item.backdrop_path}`}
