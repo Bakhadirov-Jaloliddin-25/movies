@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { RiCoupon3Line } from "react-icons/ri";
-import { MdOutlineVibration } from "react-icons/md";
-import { FiSearch } from "react-icons/fi";
 import logo from "@/assets/images/logo.svg";
 import active_header1 from "@/assets/images/header1-active.svg";
 import header2 from "@/assets/images/header2.svg";
@@ -33,7 +30,9 @@ const Header = () => {
 
   return (
     <div
-      className={`${darkMode ? "bg-black text-white" : "bg-white text-black"}`}
+      className={`${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      } sticky top-0 left-0 z-10`}
     >
       <div
         className={`container flex flex-wrap items-center justify-around py-4 `}

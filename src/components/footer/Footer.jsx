@@ -10,10 +10,11 @@ import { PiStarFour } from "react-icons/pi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import logo from "@/assets/images/logo1.svg";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111111] text-white py-10 mt-24">
+    <footer className="bg-[#111111] text-white py-16">
       <div className="container mx-auto px-5 grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
           <div className="flex space-x-2 items-center mb-4">
@@ -26,14 +27,20 @@ const Footer = () => {
             </div>
           </div>
           <div className="mb-4">
-            <a href="#" className="block mb-2">
+            <a
+              href="https://play.google.com/store/apps/details?id=ru.kinopoisk"
+              className="block mb-2"
+            >
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                 alt="Google Play"
                 className="w-36 cursor-pointer hover:opacity-75"
               />
             </a>
-            <a href="#" className="block">
+            <a
+              href="https://apps.apple.com/ru/app/%D0%BA%D0%B8%D0%BD%D0%BE%D0%BF%D0%BE%D0%B8%D1%81%D0%BA-%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B-%D0%B8-%D1%81%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B/id477718890"
+              className="block"
+            >
               <img
                 src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
                 alt="App Store"
@@ -90,9 +97,15 @@ const Footer = () => {
           </p>
           <h3 className="text-lg font-semibold mb-3">Social media</h3>
           <div className="flex space-x-4">
-            <FaInstagram className="text-red-500 text-2xl cursor-pointer hover:text-red-600" />
-            <FaFacebookF className="text-red-500 text-2xl cursor-pointer hover:text-red-600" />
-            <FaYoutube className="text-red-500 text-2xl cursor-pointer hover:text-red-600" />
+            <a href="https://www.instagram.com/kinopoisk/?hl=ru">
+              <FaInstagram className="text-red-500 text-2xl cursor-pointer hover:text-red-600" />
+            </a>
+            <a href="https://www.facebook.com/kinopoisk/">
+              <FaFacebookF className="text-red-500 text-2xl cursor-pointer hover:text-red-600" />
+            </a>
+            <a href="https://www.youtube.com/channel/UC4tlrTXCBw6NPZ9nCA3_s9w">
+              <FaYoutube className="text-red-500 text-2xl cursor-pointer hover:text-red-600" />
+            </a>
           </div>
         </div>
       </div>

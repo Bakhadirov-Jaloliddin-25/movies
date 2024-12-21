@@ -1,17 +1,30 @@
 import React, { memo } from "react";
+import { useNavigate } from "react-router-dom";
 
-const MovieItem = ({ title, poster_path, vote_average, original_language }) => {
+const MovieItem = ({
+  title,
+  poster_path,
+  vote_average,
+  original_language,
+  id,
+}) => {
+  const navigate = useNavigate();
   return (
-    <div className="rounded-xl">
-      <img
-        src={`${import.meta.env.VITE_IMAGE_URL}${poster_path}`}
-        alt=""
-        className="w-[280px] h-[400px] rounded-xl"
-      />
-      <h3 className="bg-black text-white ">
-        {title} - {original_language.toUpperCase()}
-      </h3>
-      <p className="bg-black text-white">{vote_average}</p>
+    <div className="w-[280px] rounded-xl overflow-hidden flex flex-col items-start mb-10">
+      <div className="w-full h-[400px]">
+        <img
+          onClick={() => navigate(`/movie/${id}`)}
+          src={`${import.meta.env.VITE_IMAGE_URL}${poster_path}`}
+          alt={title}
+          className="w-full h-full object-cover cursor-pointer rounded-xl"
+        />
+      </div>
+      <div className="mt-3 pl-1">
+        <h3 className="text-lg font-bold line-clamp-1">
+          {title} - {original_language.toUpperCase()}
+        </h3>
+        <p className="text-sm text-gray-500 mt-1">Rating: {vote_average}</p>
+      </div>
     </div>
   );
 };

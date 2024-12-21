@@ -9,8 +9,10 @@ import "swiper/css/autoplay";
 import "./Swiper.css";
 
 import { FreeMode, Navigation, Thumbs, Autoplay } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 
 export const Carousel = ({ data }) => {
+  const navigate = useNavigate();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -48,7 +50,7 @@ export const Carousel = ({ data }) => {
                   {item.release_date} • {item.original_language.toUpperCase()}
                 </p>
                 <button
-                  onClick={() => alert(`Watching ${item.title}`)}
+                  onClick={() => navigate(`/movie/${item.id}`)}
                   className="w-[380px] h-[52px] bg-white text-[#C61F1F] font-semibold rounded-xl hover:bg-[#C61F1F] hover:text-white transition text-[32px]"
                 >
                   Watch
