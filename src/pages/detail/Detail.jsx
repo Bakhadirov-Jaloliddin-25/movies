@@ -1,107 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { request } from "../../api";
 import imdb from "../../assets/images/imdb.svg";
 import kinopoisk from "../../assets/images/kinopoisk.svg";
-import translate from "translate";
 import Movies from "../../components/movies/Movies";
 import { Helmet } from "react-helmet";
+import { ScaleLoader } from "react-spinners";
 
 const Details = () => {
   const { id } = useParams();
-  const [data, setData] = useState(null);
-  const [similar, setSimilar] = useState([]);
-  const [credits, setCredits] = useState(null);
-  const [translatedCountries, setTranslatedCountries] = useState([]);
-  const [translatedGenres, setTranslatedGenres] = useState([]);
-  const [translatedJobs, setTranslatedJobs] = useState([]);
-  const [translatedCasts, setTranslatedCasts] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    request.get(`/movie/${id}`).then((res) => setData(res.data));
-    request.get(`/movie/${id}/similar`).then((res) => setSimilar(res.data));
-    request.get(`/movie/${id}/credits`).then((res) => setCredits(res.data));
-  }, [id]);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["movie", id],
+    queryFn: () => request.get(`/movie/${id}`).then((res) => res.data),
+    enabled: !!id,
+  });
 
-  useEffect(() => {
-    const translateCountries = async () => {
-      if (data?.production_countries) {
-        const translated = await Promise.all(
-          data.production_countries.map(async (country) => {
-            const translatedName = await translate(country.name, "ru");
-            return translatedName;
-          })
-        );
-        setTranslatedCountries(translated);
-      }
-    };
+  const { data: similar, isLoading: similarLoading } = useQuery({
+    queryKey: ["similar", id],
+    queryFn: () => request.get(`/movie/${id}/similar`).then((res) => res.data),
+    enabled: !!id,
+  });
 
-    translateCountries();
-
-    const translateGenres = async () => {
-      if (data?.genres) {
-        const translated = await Promise.all(
-          data.genres.map(async (genre) => {
-            const translatedName = await translate(genre.name, "ru");
-            return translatedName;
-          })
-        );
-        setTranslatedGenres(translated);
-      }
-    };
-    translateGenres();
-
-    const translateCrew = async () => {
-      if (credits?.crew) {
-        const translatedCrew = await Promise.all(
-          credits.crew.map(async (member) => {
-            if (member.job === "Director") {
-              const translatedName = await translate(member.name, "ru");
-              return translatedName;
-            }
-            return null;
-          })
-        );
-        setTranslatedJobs(translatedCrew.filter((name) => name !== null));
-      }
-    };
-    translateCrew();
-
-    const translateCasts = async () => {
-      if (credits?.cast) {
-        const translatedCasts = await Promise.all(
-          credits.cast.map(async (member) => {
-            const translatedCharacter = await translate(member.character, "ru");
-            const translatedName = await translate(member.name, "ru");
-            return {
-              character: translatedCharacter,
-              name: translatedName,
-            };
-          })
-        );
-        setTranslatedCasts(translatedCasts);
-      }
-    };
-    translateCasts();
-
-    const translateOverviews = async () => {
-      if (data?.overview) {
-        const translatedOverview = await translate(data.overview, "ru");
-        setData({ ...data, overview: translatedOverview });
-      }
-    };
-    translateOverviews();
-  }, [data]);
+  const { data: credits, isLoading: creditsLoading } = useQuery({
+    queryKey: ["credits", id],
+    queryFn: () => request.get(`/movie/${id}/credits`).then((res) => res.data),
+    enabled: !!id,
+  });
 
   const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
-    return `${hours}ч ${remainingMinutes}м / ${minutes} минут`;
+    return `${hours}h ${remainingMinutes}m / ${minutes} minutes`;
   };
+
+  // Scroll to top when `id` changes (or data updates)
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0); // Always scroll to the top when `id` changes or data is loaded
+  }, [id, data, similar, credits]);
+
+  if (isLoading || similarLoading || creditsLoading)
+    return (
+      <div className="flex justify-center items-center min-h-[70vh] bg-white dark:bg-black">
+        <ScaleLoader color="#ff0000" size={150} />
+      </div>
+    );
+  if (error) return <p>Error loading data. Please try again later.</p>;
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white">
@@ -138,83 +84,95 @@ const Details = () => {
               {data?.title}
             </h1>
             <p className="text-sm md:text-lg mb-6">
-              2024 • Комедия • 1ч 34мин • EN •
+              {new Date(data?.release_date).getFullYear()} •{" "}
+              {data?.genres
+                .slice(0, 1)
+                .map((genre) => genre.name)
+                .join(", ")}{" "}
+              • {Math.floor(data?.runtime / 60)}h {data?.runtime % 60}m • EN
             </p>
+
             <button className="bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-full shadow-lg">
-              Купить билет
+              Buy Ticket
             </button>
           </div>
         </div>
         <div className="detail-list w-[380px] mt-12">
           <div className="first-buttons grid grid-cols-2">
             <button className="bg-[#111111] text-white py-4 px-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition-all">
-              Билеты
+              Tickets
             </button>
-
             <button className="bg-[#1D1D1D] text-primary py-4 px-2 rounded-lg text-sm font-semibold hover:bg-gray-700 transition-all">
-              О Фильме
+              About the Movie
             </button>
           </div>
           <div className="second-buttons grid grid-cols-2 gap-4 mt-12">
-            <button className="flex items-center justify-around border border-[#111111] px-4  rounded-xl text-xl font-[900]">
+            <button className="flex items-center justify-around border border-[#111111] px-4 rounded-xl text-xl font-[900]">
               {((data?.vote_average / 100) * 90).toFixed(1)}
               <img className="w-20 h-16" src={imdb} alt="" />
             </button>
-            <button className="flex items-center justify-around border border-[#111111] px-4  rounded-xl text-xl font-[900]">
+            <button className="flex items-center justify-around border border-[#111111] px-4 rounded-xl text-xl font-[900]">
               {data?.vote_average?.toFixed(1)}
               <img className="w-20 h-16" src={kinopoisk} alt="" />
             </button>
           </div>
-          <div className="Detali border-b pb-6 border-[#2D2D2D]">
-            <h3 className="mt-12 text-xl">Детали</h3>
+          <div className="Details border-b pb-6 border-[#2D2D2D]">
+            <h3 className="mt-12 text-xl">Details</h3>
             <div className="flex flex-wrap justify-between mt-6">
-              <p className="text-sm ">Продолжительность</p>
+              <p className="text-sm ">Duration</p>
               <p className="text-sm "> {formatTime(data?.runtime)}</p>
             </div>
             <div className="flex flex-wrap justify-between mt-4">
-              <p className="text-sm ">Премьера</p>
+              <p className="text-sm ">Premiere</p>
               <p className="text-sm ">
                 {new Date(data?.release_date).toLocaleDateString()}
               </p>
             </div>
             <div className="flex flex-wrap justify-between mt-4">
-              <p className="text-sm ">Производство</p>
-              <p className="text-sm ">{translatedCountries.join(", ")}</p>
-            </div>
-            <div className="flex flex-wrap justify-between mt-4">
-              <p className="text-sm flex-1 ">Жанр</p>
+              <p className="text-sm ">Production</p>
               <p className="text-sm ">
-                {translatedGenres.slice(0, 2).join(", ")}
+                {data?.production_countries
+                  .map((country) => country.name)
+                  .join(", ")}
               </p>
             </div>
             <div className="flex flex-wrap justify-between mt-4">
-              <p className="text-sm ">Режиссер</p>
+              <p className="text-sm flex-1 ">Genre</p>
               <p className="text-sm ">
-                {translatedJobs.join(", ") == ""
-                  ? "Майк Митчелл, Стефани Стайн"
-                  : translatedJobs.slice(0, 2).join(", ")}
+                {data?.genres
+                  .slice(0, 2)
+                  .map((genre) => genre.name)
+                  .join(", ")}
+              </p>
+            </div>
+            <div className="flex flex-wrap justify-between mt-4">
+              <p className="text-sm ">Director</p>
+              <p className="text-sm ">
+                {credits?.crew
+                  .filter((member) => member.job === "Director")
+                  .map((director) => director.name)
+                  .join(", ") || "Mike Mitchell, Stephanie Stein"}
               </p>
             </div>
           </div>
-          <div className="Roli border-b pb-8 border-[#2D2D2D]">
-            <h3 className="mt-12 text-xl">В ролях</h3>
-            {translatedCasts.slice(0, 5).map((member, index) => (
+          <div className="Cast border-b pb-8 border-[#2D2D2D]">
+            <h3 className="mt-12 text-xl">Cast</h3>
+            {credits?.cast.slice(0, 5).map((member, index) => (
               <div key={index} className="flex flex-wrap justify-between mt-6">
                 <p className="text-sm ">{member.name}</p>
                 <p className="text-sm ">{member.character}</p>
               </div>
             ))}
           </div>
-          <div className="Roli pb-6">
-            <h3 className="mt-12 text-xl">Сюжет</h3>
+          <div className="Plot pb-6">
+            <h3 className="mt-12 text-xl">Plot</h3>
             <p className="mt-6 text-base">{data?.overview}</p>
           </div>
           <button className="mt-6 mb-10 bg-primary w-full px-6 py-4 rounded-xl text-white">
-            Купить билет
+            Buy Ticket
           </button>
         </div>
       </div>
-
       <Movies isDetail={true} data={similar} />
     </div>
   );

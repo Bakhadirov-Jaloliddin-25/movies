@@ -1,67 +1,36 @@
+import { useQuery } from "@tanstack/react-query";
 import { request } from "@/api";
 import Carousel from "@/components/carousel/Carousel";
 import Movies from "@/components/movies/Movies";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { Helmet } from "react-helmet";
-import Pagination from "@mui/material/Pagination";
-import Genre from "../../components/genre/Genre";
+import { ScaleLoader } from "react-spinners";
 
 const Home = () => {
-  const [data, setData] = useState(null);
-  const [page, setPage] = useState(1);
-  const [genres, setGenres] = useState(null);
-  const [selectedGenre, setSelectedGenre] = useState([]);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["movies"],
+    queryFn: () => request.get("/discover/movie").then((res) => res.data),
+  });
 
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[80vh] bg-white dark:bg-black">
+        <ScaleLoader color="#ff0000" size={150} />
+      </div>
+    );
+  }
 
-  useEffect(() => {
-    request.get("/genre/movie/list").then((res) => setGenres(res.data.genres));
-  }, []);
-
-  useEffect(() => {
-    request("/discover/movie", {
-      params: {
-        page,
-        without_genres: "18,10749, 99",
-        with_genres: selectedGenre.join(","),
-      },
-    }).then((res) => {
-      setData(res.data);
-    });
-  }, [page, selectedGenre]);
+  if (error) {
+    return <div>Error loading movies. Please try again later.</div>;
+  }
 
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white dark:bg-black duration-300">
       <Helmet>
         <title>Home</title>
       </Helmet>
       <Carousel data={data} />
-      <Genre
-        selectedGenre={selectedGenre}
-        data={genres}
-        setSelectedGenre={setSelectedGenre}
-      />
       <Movies data={data} />
-      <div className="flex justify-center py-6">
-        <Pagination
-          page={page}
-          onChange={handleChange}
-          count={data?.total_pages <= 500 ? data.total_pages : 500}
-          className="bg-primary text-black dark:text-white rounded-xl"
-          sx={{
-            "& .MuiPaginationItem-root": {
-              color: "inherit",
-              fontWeight: "bold",
-            },
-            "& .MuiPaginationItem-root.Mui-selected": {
-              backgroundColor: "white",
-              color: "red",
-            },
-          }}
-        />
-      </div>
     </div>
   );
 };
