@@ -36,9 +36,8 @@ const Details = () => {
     return `${hours}h ${remainingMinutes}m / ${minutes} minutes`;
   };
 
-  // Scroll to top when `id` changes (or data updates)
   useEffect(() => {
-    window.scrollTo(0, 0); // Always scroll to the top when `id` changes or data is loaded
+    window.scrollTo(0, 0);
   }, [id, data, similar, credits]);
 
   if (isLoading || similarLoading || creditsLoading)

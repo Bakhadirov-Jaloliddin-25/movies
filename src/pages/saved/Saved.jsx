@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 
 const SavedPage = () => {
+  const navigate = useNavigate();
+
   const [savedItems, setSavedItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +34,7 @@ const SavedPage = () => {
             </div>
           </div>
         ) : savedItems.length === 0 ? (
-          <p className="text-lg text-center text-gray-500 dark:text-white min-h-[47.9vh]">
+          <p className="text-center text-lg text-gray-500 dark:text-white min-h-[47.9vh]">
             No saved items found.
           </p>
         ) : (
@@ -42,6 +45,7 @@ const SavedPage = () => {
                 className="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <img
+                  onClick={() => navigate(`/movie/${item.id}`)}
                   src={`${import.meta.env.VITE_IMAGE_URL}${item.poster_path}`}
                   alt={item.title}
                   className="w-full h-[350px] object-cover rounded-t-lg"
