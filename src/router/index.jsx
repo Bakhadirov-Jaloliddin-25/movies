@@ -5,6 +5,8 @@ import Layout from "../pages/layout/Layout";
 import Detail from "../pages/detail/Detail";
 import Movie from "../pages/movies/Movie";
 import Saved from "../pages/saved/Saved";
+import Search from "../pages/search/Search";
+import NotFoundPage from "../pages/notfound/Notfound";
 
 const Router = () => {
   return useRoutes([
@@ -17,8 +19,10 @@ const Router = () => {
         { path: "/movie/:id", element: <Detail /> },
         { path: "/movie", element: <Movie /> },
         { path: "/saved", element: <Saved /> },
+        { path: "/search", element: <Search /> },
       ],
     },
+    { path: "/*", element: <NotFoundPage /> },
   ]);
 };
 

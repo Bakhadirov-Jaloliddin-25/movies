@@ -36,10 +36,6 @@ const Details = () => {
     return `${hours}h ${remainingMinutes}m / ${minutes} minutes`;
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id, data, similar, credits]);
-
   if (isLoading || similarLoading || creditsLoading)
     return (
       <div className="flex justify-center items-center min-h-[70vh] bg-white dark:bg-black">
