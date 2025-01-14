@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <Helmet>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Helmet>
       <Header />
       <main>
