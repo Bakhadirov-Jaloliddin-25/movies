@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <Helmet>
-        <link rel="icon" type="image/svg+xml" href="/biletick.svg" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Helmet>
       <Header />
       <main>
