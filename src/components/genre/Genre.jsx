@@ -17,8 +17,8 @@ const Genre = ({ data, setSelectedGenre, selectedGenre }) => {
         <div
           onClick={() => handleChange(item.id)}
           key={item.id}
-          className={`whitespace-nowrap p-1 bg-slate-200 rounded-md cursor-pointer select-none ${
-            selectedGenre.includes(item.id) ? "bg-slate-400" : ""
+          className={`whitespace-nowrap p-1 rounded-md cursor-pointer select-none ${
+            selectedGenre.includes(item.id) ? "bg-red-600" : "bg-slate-200 "
           } "`}
           // className={`whitespace-nowrap p-2 bg-red-400 font-bold rounded-md px-3 cursor-pointer select-none
           //   ${selectedGenre.includes(item.id) ? "bg-red-600" : ""}`}
