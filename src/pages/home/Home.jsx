@@ -25,7 +25,7 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-black duration-300">
+    <div className="bg-white dark:bg-black duration-300 pt-28">
       <Helmet>
         <title>Home</title>
       </Helmet>

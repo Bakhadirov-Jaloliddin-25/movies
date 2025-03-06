@@ -93,7 +93,7 @@ const MovieItem = ({
         </button>
       </div>
       <div className="mt-3 pl-1">
-        <h3 className="text-lg font-bold line-clamp-1">
+        <h3 className="text-lg font-bold truncate">
           {title} - {original_language.toUpperCase()}
         </h3>
         <p className="text-sm mt-1 text-start">Rating: {vote_average}</p>

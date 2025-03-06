@@ -3,25 +3,25 @@ import "./scroll.css";
 
 const Genre = ({ data, setSelectedGenre, selectedGenre }) => {
   const handleChange = (id) => {
-    if (selectedGenre.includes(id)) {
-      setSelectedGenre((prev) =>
-        prev.filter((selectedId) => selectedId !== id)
-      );
-    } else {
-      setSelectedGenre((prev) => [...prev, id]);
-    }
+    setSelectedGenre((prev) =>
+      prev.includes(id)
+        ? prev.filter((selectedId) => selectedId !== id)
+        : [...prev, id]
+    );
   };
+
   return (
-    <div className="scroll-container overflow-auto container flex gap-3 p-4">
+    <div className="scroll-container overflow-auto container flex gap-3 p-4 pt-28">
       {data?.map((item) => (
         <div
           onClick={() => handleChange(item.id)}
           key={item.id}
-          className={`whitespace-nowrap p-1 rounded-md cursor-pointer select-none ${
-            selectedGenre.includes(item.id) ? "bg-red-600" : "bg-slate-200 "
-          } "`}
-          // className={`whitespace-nowrap p-2 bg-red-400 font-bold rounded-md px-3 cursor-pointer select-none
-          //   ${selectedGenre.includes(item.id) ? "bg-red-600" : ""}`}
+          className={`whitespace-nowrap px-4 py-2 rounded-lg shadow-md cursor-pointer select-none transition-colors duration-300
+            ${
+              selectedGenre.includes(item.id)
+                ? "bg-red-600 text-white hover:bg-red-700"
+                : "bg-white text-gray-900 dark:bg-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            }`}
         >
           {item.name}
         </div>

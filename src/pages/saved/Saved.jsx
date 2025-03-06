@@ -22,7 +22,7 @@ const SavedPage = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-black duration-300">
+    <div className="bg-white dark:bg-black duration-300 pt-24">
       <div className="container py-6">
         <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800 dark:text-white">
           Saved Items

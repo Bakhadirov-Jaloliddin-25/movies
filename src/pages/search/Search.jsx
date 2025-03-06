@@ -41,7 +41,7 @@ const Search = () => {
   }, [searchValue]);
 
   return (
-    <div className="bg-white dark:bg-black duration-300 min-h-screen">
+    <div className="bg-white dark:bg-black duration-300 min-h-screen pt-20">
       <div className="container py-10">
         <form
           onSubmit={handleSearch}
