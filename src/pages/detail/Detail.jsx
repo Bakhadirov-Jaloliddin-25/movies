@@ -45,7 +45,7 @@ const Details = () => {
   if (error) return <p>Error loading data. Please try again later.</p>;
 
   return (
-    <div className="bg-white dark:bg-black text-black dark:text-white">
+    <div className="bg-white dark:bg-black text-black dark:text-white pt-28">
       <Helmet>
         <title>Detail</title>
       </Helmet>
