@@ -54,7 +54,7 @@ const MovieItem = ({
         />
         <button
           onClick={toggleSaveItem}
-          className="absolute top-3 right-3 w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center transition-all duration-300 ease-in-out shadow-md opacity-0 group-hover:opacity-100 hover:shadow-lg"
+          className="absolute top-3 right-3 w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center transition-all duration-300 ease-in-out shadow-md min-[768px]:opacity-0 group-hover:opacity-100 hover:shadow-lg"
         >
           {isSaved ? (
             <IoBookmark className="text-white text-2xl transition-transform duration-200" />

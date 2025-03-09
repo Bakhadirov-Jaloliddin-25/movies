@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "../carousel/Swiper.css";
@@ -10,23 +9,27 @@ import { memo } from "react";
 
 const Movies = ({ data }) => {
   return (
-    <div className="container justify-center mt-24 px-28">
+    <div className="container mx-auto mt-16 px-4 sm:px-8 md:px-16 lg:px-28">
       <Swiper
         loop={true}
         navigation={true}
-        spaceBetween={10}
-        slidesPerView={4}
+        spaceBetween={16} // Slide'lar orasidagi masofa
+        slidesPerView={2} // Default qiymat - 2 ta slayddan boshlanadi
         modules={[Navigation]}
         className="CardSwiper"
         breakpoints={{
-          320: { slidesPerView: 1 }, // Mobil ekranlar
-          640: { slidesPerView: 2 }, // Kichik ekranlar
-          1024: { slidesPerView: 3 }, // O‘rta ekranlar
-          1280: { slidesPerView: 4 }, // Katta ekranlar
+          480: { slidesPerView: 2, spaceBetween: 20 }, // Kichik telefon
+          640: { slidesPerView: 2, spaceBetween: 20 }, // Telefon
+          768: { slidesPerView: 3, spaceBetween: 24 }, // Planshet
+          1024: { slidesPerView: 4, spaceBetween: 24 }, // Katta ekran
+          1280: { slidesPerView: 5, spaceBetween: 28 }, // Juda katta ekran
         }}
       >
         {data?.results?.map((item, index) => (
-          <SwiperSlide key={index} className="rounded-xl ">
+          <SwiperSlide
+            key={index}
+            className="rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105"
+          >
             <MovieItem {...item} />
           </SwiperSlide>
         ))}
