@@ -17,7 +17,13 @@ const Movies = ({ data }) => {
         spaceBetween={10}
         slidesPerView={4}
         modules={[Navigation]}
-        className="CardSwiper "
+        className="CardSwiper"
+        breakpoints={{
+          320: { slidesPerView: 1 }, // Mobil ekranlar
+          640: { slidesPerView: 2 }, // Kichik ekranlar
+          1024: { slidesPerView: 3 }, // O‘rta ekranlar
+          1280: { slidesPerView: 4 }, // Katta ekranlar
+        }}
       >
         {data?.results?.map((item, index) => (
           <SwiperSlide key={index} className="rounded-xl ">

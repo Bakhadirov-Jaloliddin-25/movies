@@ -19,7 +19,6 @@ const Header = () => {
       } shadow-md transition-all duration-300`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        {/* Logo */}
         <img
           onClick={() => navigate("/")}
           className="w-28 cursor-pointer select-none hover:opacity-80 transition"
@@ -71,7 +70,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Bottom Navbar */}
-      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-black shadow-t md:hidden py-2">
+      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-black shadow-t md:hidden py-2 z-50">
         <nav className="flex justify-around">
           {[
             { to: "/", icon: <GoHome /> },
