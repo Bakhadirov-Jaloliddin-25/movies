@@ -28,7 +28,7 @@ const Movies = ({ data }) => {
         {data?.results?.map((item, index) => (
           <SwiperSlide
             key={index}
-            className="rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105"
+            className="rounded-xl overflow-hidden transition-all"
           >
             <MovieItem {...item} />
           </SwiperSlide>

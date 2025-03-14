@@ -1,52 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { TiDeleteOutline } from "react-icons/ti";
 import { ReactTyped } from "react-typed";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { request } from "@/api";
 import Movies from "@/components/movies/Movies";
 import { useSearchParams } from "react-router-dom";
-import { TiDeleteOutline } from "react-icons/ti";
+import { debounce } from "lodash";
 
 const Search = () => {
-  const [searchparams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState(searchparams.get("q") || "");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialSearch = searchParams.get("q") || "";
+  const [searchValue, setSearchValue] = useState(initialSearch);
   const queryClient = useQueryClient();
-  const { data } = useQuery({
-    queryKey: ["movie"],
-    queryFn: () =>
-      request
-        .get("/search/movie", {
-          params: {
-            query: searchValue,
-          },
-        })
-        .then((res) => res.data),
-  });
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    queryClient.invalidateQueries({ queryKey: ["movie"] });
-    setSearchParams({ q: searchValue });
-  };
-
-  const handleClear = () => {
-    setSearchParams({});
-    setSearchValue("");
-  };
+  const delayedSearch = debounce((value) => {
+    setSearchParams(value ? { q: value } : {});
+  }, 500);
 
   useEffect(() => {
-    if (!searchValue) {
-      queryClient.invalidateQueries({ queryKey: ["movie"] });
-    }
+    delayedSearch(searchValue);
+    return () => delayedSearch.cancel();
   }, [searchValue]);
 
+  const { data, isFetching } = useQuery({
+    queryKey: ["movie", searchValue],
+    queryFn: () =>
+      searchValue
+        ? request
+            .get("/search/movie", { params: { query: searchValue } })
+            .then((res) => res.data)
+        : Promise.resolve(null),
+    enabled: !!searchValue,
+  });
+
   return (
-    <div className="bg-white dark:bg-black duration-300 min-h-screen pt-20">
+    <div className="min-h-screen pt-20 bg-white dark:bg-black">
       <div className="container py-10">
-        <form
-          onSubmit={handleSearch}
-          className="max-w-[800px] mx-auto flex items-center shadow-lg rounded-md bg-gray-100 dark:bg-gray-800 overflow-hidden"
-        >
+        <div className="max-w-[700px] mx-auto flex items-center shadow-lg rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
           <ReactTyped
             strings={["Avengers", "Venom", "Avatar", "Spiderman"]}
             typeSpeed={40}
@@ -58,33 +49,33 @@ const Search = () => {
             <input
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="h-12 px-4 w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white outline-none duration-300"
+              className="h-12 px-5 w-full bg-transparent text-gray-900 dark:text-white outline-none placeholder-gray-500 dark:placeholder-gray-400"
               type="text"
             />
           </ReactTyped>
-          <div className="flex justify-self-center items-center">
-            {searchValue.length ? (
-              <button
-                type="button"
-                onClick={handleClear}
-                className="h-12 w-12 bg-red-500 text-white flex items-center justify-center hover:bg-red-800 transition duration-300"
-              >
-                <TiDeleteOutline size={24} />
-              </button>
-            ) : null}
+
+          {searchValue && (
             <button
-              type="submit"
-              className="h-12 w-12 bg-slate-300 text-black flex items-center justify-center hover:bg-slate-600 hover:text-white transition duration-300"
+              onClick={() => setSearchValue("")}
+              className="h-12 w-12 text-gray-500 dark:text-gray-400 flex items-center justify-center hover:text-red-500 transition duration-300"
             >
-              <CiSearch size={24} />
+              <TiDeleteOutline size={26} />
             </button>
-          </div>
-        </form>
+          )}
+
+          <button className="h-12 w-12 bg-primary text-white flex items-center justify-center rounded-r-full hover:bg-red-800 transition duration-300">
+            <CiSearch size={26} />
+          </button>
+        </div>
 
         <div className="mt-8">
-          {!data?.total_results ? (
+          {isFetching ? (
             <p className="text-center text-lg text-gray-600 dark:text-gray-300">
-              Movie not found.
+              Searching...
+            </p>
+          ) : !data?.total_results ? (
+            <p className="text-center text-lg text-gray-600 dark:text-gray-300">
+              No movies found.
             </p>
           ) : (
             <Movies data={data} />

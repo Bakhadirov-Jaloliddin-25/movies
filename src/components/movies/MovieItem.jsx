@@ -1,7 +1,9 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo } from "react";
 import { CiBookmarkPlus } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addMovie, removeMovie } from "../../redux/slices/savedMoviesSlice";
 
 const MovieItem = ({
   title,
@@ -11,35 +13,18 @@ const MovieItem = ({
   id,
 }) => {
   const navigate = useNavigate();
-  const [isSaved, setIsSaved] = useState(false);
+  const dispatch = useDispatch();
+  const savedMovies = useSelector((state) => state.savedMovies.savedMovies);
 
-  useEffect(() => {
-    try {
-      const savedData = JSON.parse(localStorage.getItem("savedItems")) || [];
-      setIsSaved(savedData.some((item) => item.id === id));
-    } catch (error) {
-      console.error("Error parsing localStorage data:", error);
-    }
-  }, [id]);
+  const isSaved = savedMovies.some((movie) => movie.id === id);
 
   const toggleSaveItem = () => {
-    try {
-      const savedData = JSON.parse(localStorage.getItem("savedItems")) || [];
-      let updatedData;
-
-      if (isSaved) {
-        updatedData = savedData.filter((savedItem) => savedItem.id !== id);
-      } else {
-        updatedData = [
-          ...savedData,
-          { id, title, poster_path, vote_average, original_language },
-        ];
-      }
-
-      localStorage.setItem("savedItems", JSON.stringify(updatedData));
-      setIsSaved(!isSaved);
-    } catch (error) {
-      console.error("Error updating localStorage:", error);
+    if (isSaved) {
+      dispatch(removeMovie(id));
+    } else {
+      dispatch(
+        addMovie({ id, title, poster_path, vote_average, original_language })
+      );
     }
   };
 
@@ -54,7 +39,7 @@ const MovieItem = ({
         />
         <button
           onClick={toggleSaveItem}
-          className="absolute top-3 right-3 w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center transition-all duration-300 ease-in-out shadow-md min-[768px]:opacity-0 group-hover:opacity-100 hover:shadow-lg"
+          className="absolute top-3 right-3 w-10 h-10 bg-primary rounded-full flex items-center justify-center transition-all duration-300 ease-in-out shadow-md min-[768px]:opacity-0 group-hover:opacity-100 hover:shadow-lg"
         >
           {isSaved ? (
             <IoBookmark className="text-white text-2xl transition-transform duration-200" />
