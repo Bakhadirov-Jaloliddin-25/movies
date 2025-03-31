@@ -30,7 +30,7 @@ const Header = () => {
           <img
             src={logo}
             alt="logo"
-            className="w-28 cursor-pointer select-none hover:opacity-80 transition"
+            className="w-28 cursor-pointer select-none hover:opacity-80 transition max-[430px]:w-20"
             onClick={() => navigate("/")}
           />
 
@@ -52,19 +52,19 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <button className="hidden md:block bg-red-600 text-white px-5 py-2 rounded-xl shadow-md hover:shadow-lg transition">
+            <button className="hidden md:block bg-red-600 text-white px-5 py-2 rounded-xl hover:bg-red-800 duration-300">
               Login
             </button>
 
             <button
               onClick={toggleDarkMode}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 transition"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 transition max-[430px]:w-7 max-[430px]:h-7"
               aria-label="Toggle Dark Mode"
             >
               {isDarkMode ? (
-                <MdWbSunny className="text-yellow-300 text-lg" />
+                <MdWbSunny className="text-yellow-300 text-lg max-[430px]:text-sm" />
               ) : (
-                <FaMoon className="text-gray-300 text-lg" />
+                <FaMoon className="text-gray-300 text-lg max-[430px]:text-sm" />
               )}
             </button>
           </div>

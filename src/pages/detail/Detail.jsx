@@ -50,7 +50,7 @@ const Details = () => {
         <title>Detail</title>
       </Helmet>
       <div className="flex flex-col items-center">
-        <div className="w-[1360px] h-[640px] relative">
+        <div className="w-[1360px] h-[640px] relative max-[430px]:w-[400px] max-[430px]:h-[400px]">
           <img
             className="w-full h-full object-cover rounded-xl"
             src={import.meta.env.VITE_IMAGE_URL + data?.backdrop_path}
@@ -58,14 +58,14 @@ const Details = () => {
           />
           <button
             onClick={() => navigate(-1)}
-            className="w-14 h-14 flex items-center justify-center rounded-xl bg-secondary dark:bg-gray-800 active:bg-primary transition duration-300 absolute top-3 left-3 opacity-80"
+            className="w-14 h-14 flex items-center justify-center rounded-xl bg-secondary transition duration-300 absolute top-3 left-3 opacity-80"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="2"
-              className="w-6 h-6 stroke-primary dark:stroke-white active:stroke-secondary transition duration-300"
+              className="w-6 h-6 stroke-white active:stroke-primary transition duration-300"
             >
               <path
                 strokeLinecap="round"
@@ -74,7 +74,7 @@ const Details = () => {
               />
             </svg>
           </button>
-          <div className="mt-96 absolute inset-0 flex flex-col items-center justify-center text-center text-white">
+          <div className="mt-96 absolute inset-0 flex flex-col items-center justify-center text-center text-white max-[430px]:mt-60">
             <h1 className="text-2xl md:text-5xl font-bold mb-4">
               {data?.title}
             </h1>
@@ -87,13 +87,13 @@ const Details = () => {
               • {Math.floor(data?.runtime / 60)}h {data?.runtime % 60}m • EN
             </p>
 
-            <button className="bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-full shadow-lg">
+            <button className="bg-red-600 hover:bg-red-700 duration-300 text-white py-3 px-6 rounded-full shadow-lg">
               Buy Ticket
             </button>
           </div>
         </div>
         <div className="detail-list w-[380px] mt-12">
-          <div className="first-buttons grid grid-cols-2">
+          <div className="grid grid-cols-2 gap-1">
             <button className="bg-[#111111] text-white py-4 px-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition-all">
               Tickets
             </button>
@@ -163,7 +163,7 @@ const Details = () => {
             <h3 className="mt-12 text-xl">Plot</h3>
             <p className="mt-6 text-base">{data?.overview}</p>
           </div>
-          <button className="mt-6 mb-10 bg-primary w-full px-6 py-4 rounded-xl text-white">
+          <button className="mt-6 mb-10 bg-primary w-full px-6 py-4 rounded-xl text-white hover:bg-red-800 duration-300">
             Buy Ticket
           </button>
         </div>
