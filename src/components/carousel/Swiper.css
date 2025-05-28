@@ -88,3 +88,9 @@
   height: auto;
   width: 100%;
 }
+
+@media only screen and (max-width: 600px) {
+  .mySwiper2 {
+    height: 250px;
+  }
+}

@@ -50,7 +50,7 @@ export const Carousel = ({ data }) => {
                 </p>
                 <button
                   onClick={() => navigate(`/movie/${item.id}`)}
-                  className="w-full md:w-[200px] lg:w-[300px] h-[42px] md:h-[52px] bg-white text-[#C61F1F] font-semibold rounded-lg hover:bg-[#C61F1F] hover:text-white transition text-lg md:text-xl"
+                  className="w-full md:w-[200px] lg:w-[300px] h-[42px] md:h-[52px] bg-white dark:bg-[#C61F1F] text-[#C61F1F] dark:text-white font-semibold rounded-lg hover:bg-[#C61F1F] dark:hover:bg-white hover:text-white dark:hover:text-[#C61F1F] transition text-lg md:text-xl"
                 >
                   Watch
                 </button>
