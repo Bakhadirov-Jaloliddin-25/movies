@@ -30,7 +30,7 @@ const MovieItem = ({
 
   return (
     <div className="w-[280px] rounded-xl overflow-hidden flex flex-col items-start mb-10 bg-white text-black dark:bg-black dark:text-white relative group">
-      <div className="w-full h-[400px] relative">
+      <div className="w-full h-[300px] relative">
         <img
           onClick={() => navigate(`/movie/${id}`)}
           src={`${import.meta.env.VITE_IMAGE_URL}${poster_path}`}

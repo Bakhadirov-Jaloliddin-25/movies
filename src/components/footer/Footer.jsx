@@ -90,7 +90,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
+        <div className="pb-10">
           <h3 className="text-lg font-semibold mb-3">Contact us</h3>
           <p className="text-red-500 mb-4 cursor-pointer hover:underline hover:text-red-600">
             +998 (95) 897-33-38
